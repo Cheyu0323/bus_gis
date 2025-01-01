@@ -7,7 +7,7 @@ import { StationItemType } from "@/type/common";
 import EarthIcon from "./Icon/EarthIcon";
 import MapIcon from "./Icon/MapIcon";
 import { useCesium } from "resium";
-import { Cartesian3, EasingFunction, Math as MathImps } from "cesium";
+import * as cesium from "cesium"
 import { VIEWCENTERPOSITION } from "./CesiumView";
 import PlusIcon from "./Icon/PlusIcon";
 import MinusIcon from "./Icon/MinusIcon";
@@ -20,15 +20,15 @@ const BusStationItem: React.FC<StationItemType> = ({ id, name, position }) => {
         viewer.trackedEntity = undefined;
         camera.flyTo({
             duration: 0.8,
-            easingFunction: EasingFunction.CUBIC_OUT,
-            destination: Cartesian3.fromDegrees(
+            easingFunction: cesium.EasingFunction.CUBIC_OUT,
+            destination: cesium.Cartesian3.fromDegrees(
                 position.lon,
                 position.lat,
                 1500
             ),
             orientation: {
-                heading: MathImps.toRadians(0),
-                pitch: MathImps.toRadians(-90),
+                heading: cesium.Math.toRadians(0),
+                pitch: cesium.Math.toRadians(-90),
                 roll: 0,
             },
         });
@@ -96,11 +96,11 @@ const MainMenu: React.FC = () => {
         viewer.trackedEntity = undefined;
         camera.flyTo({
             duration: 0.7,
-            easingFunction: EasingFunction.CUBIC_OUT,
+            easingFunction: cesium.EasingFunction.CUBIC_OUT,
             destination: VIEWCENTERPOSITION,
             orientation: {
-                heading: MathImps.toRadians(0),
-                pitch: MathImps.toRadians(-90),
+                heading: cesium.Math.toRadians(0),
+                pitch: cesium.Math.toRadians(-90),
                 roll: 0,
             },
         });

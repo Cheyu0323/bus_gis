@@ -1,33 +1,28 @@
 'use client'
 
-import {
-    Cartesian2,
-    defined,
-    Entity,
-    ScreenSpaceEventHandler,
-    ScreenSpaceEventType,
-} from "cesium";
+import * as cesium from "cesium";
+
 import React, { useEffect, useState } from "react";
 import { useCesium } from "resium";
 
 const FocusOutline: React.FC = () => {
     const { viewer } = useCesium();
-    const [selectedEntity, setSelectedEntity] = useState<Entity | null>();
+    const [selectedEntity, setSelectedEntity] = useState<cesium.Entity | null>();
     useEffect(() => {
         if (viewer == null) return;
 
-        const handler = new ScreenSpaceEventHandler(viewer.scene.canvas);
+        const handler = new cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
 
-        handler.setInputAction((click: { position: Cartesian2 }) => {
+        handler.setInputAction((click: { position: cesium.Cartesian2 }) => {
             const pickedObject = viewer.scene.pick(click.position);
 
-            if (defined(pickedObject)) {
+            if (cesium.defined(pickedObject)) {
                 const entity = pickedObject.id;
                 setSelectedEntity(entity);
             } else {
                 setSelectedEntity(null);
             }
-        }, ScreenSpaceEventType.LEFT_CLICK);
+        }, cesium.ScreenSpaceEventType.LEFT_CLICK);
 
         return () => {
             handler.destroy();

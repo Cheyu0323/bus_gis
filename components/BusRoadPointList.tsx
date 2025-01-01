@@ -3,25 +3,16 @@
 import React, { useRef } from "react";
 import roadPoint from "@/public/roadPoint.json";
 import { Clock, Entity, ModelGraphics } from "resium";
-import {
-    Cartesian3,
-    ClockRange,
-    Color,
-    JulianDate,
-    SampledPositionProperty,
-    TimeInterval,
-    TimeIntervalCollection,
-    VelocityOrientationProperty,
-} from "cesium";
+import * as cesium from "cesium"
 
-const start = JulianDate.fromDate(new Date());
-const stop = JulianDate.addSeconds(start, 638, new JulianDate());
+const start = cesium.JulianDate.fromDate(new Date());
+const stop = cesium.JulianDate.addSeconds(start, 638, new cesium.JulianDate());
 
 const creatTimeline = () => {
-    const property = new SampledPositionProperty();
+    const property = new cesium.SampledPositionProperty();
     roadPoint.map((point, i) => {
-        const time = JulianDate.addSeconds(start, i, new JulianDate());
-        const position = Cartesian3.fromDegrees(point.lat, point.lon);
+        const time = cesium.JulianDate.addSeconds(start, i, new cesium.JulianDate());
+        const position = cesium.Cartesian3.fromDegrees(point.lat, point.lon);
 
         property.addSample(time, position);
     });
@@ -38,7 +29,7 @@ const BusRoadPointList = () => {
                 startTime={start.clone()}
                 stopTime={stop.clone()}
                 currentTime={start.clone()}
-                clockRange={ClockRange.LOOP_STOP}
+                clockRange={cesium.ClockRange.LOOP_STOP}
                 multiplier={1}
             />
             {positionRef.current != null && (
@@ -47,21 +38,21 @@ const BusRoadPointList = () => {
                     position={positionRef.current}
                     path={{
                         resolution: 0,
-                        material: Color.RED,
+                        material: cesium.Color.RED,
                         width: 2,
                     }}
                     availability={
-                        new TimeIntervalCollection([
-                            new TimeInterval({
+                        new cesium.TimeIntervalCollection([
+                            new cesium.TimeInterval({
                                 start: start,
                                 stop: stop,
                             }),
                         ])
                     }
                     orientation={
-                        new VelocityOrientationProperty(positionRef.current)
+                        new cesium.VelocityOrientationProperty(positionRef.current)
                     }
-                    viewFrom={new Cartesian3(0, 0, 300)}
+                    viewFrom={new cesium.Cartesian3(0, 0, 300)}
                 >
                     <ModelGraphics
                         uri="/assets/bus.gltf"

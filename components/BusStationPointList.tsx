@@ -3,15 +3,7 @@
 import React, { useState } from "react";
 import busStationList from "@/public/bus_station.json";
 import { StationItemType } from "@/type/common";
-import {
-    Cartesian2,
-    Cartesian3,
-    Color,
-    NearFarScalar,
-    VerticalOrigin,
-    Math as MathImps,
-    EasingFunction,
-} from "cesium";
+import * as cesium from "cesium"
 import { BillboardGraphics, Entity, LabelGraphics, useCesium } from "resium";
 
 const BusStationPoint: React.FC<StationItemType> = ({ id, name, position }) => {
@@ -24,15 +16,15 @@ const BusStationPoint: React.FC<StationItemType> = ({ id, name, position }) => {
         viewer.trackedEntity = undefined;
         camera.flyTo({
             duration: 0.8,
-            easingFunction: EasingFunction.CUBIC_OUT,
-            destination: Cartesian3.fromDegrees(
+            easingFunction: cesium.EasingFunction.CUBIC_OUT,
+            destination: cesium.Cartesian3.fromDegrees(
                 position.lon,
                 position.lat,
                 1500
             ),
             orientation: {
-                heading: MathImps.toRadians(0),
-                pitch: MathImps.toRadians(-90),
+                heading: cesium.Math.toRadians(0),
+                pitch: cesium.Math.toRadians(-90),
                 roll: 0,
             },
         });
@@ -40,7 +32,7 @@ const BusStationPoint: React.FC<StationItemType> = ({ id, name, position }) => {
 
     return (
         <Entity
-            position={Cartesian3.fromDegrees(position.lon, position.lat, 1)}
+            position={cesium.Cartesian3.fromDegrees(position.lon, position.lat, 1)}
             onMouseEnter={() => setIsHover(true)}
             onMouseLeave={() => setIsHover(false)}
             onMouseDown={() => setIsHover(false)}
@@ -49,20 +41,20 @@ const BusStationPoint: React.FC<StationItemType> = ({ id, name, position }) => {
             <LabelGraphics
                 text={name.toString()}
                 show={isHover}
-                scaleByDistance={new NearFarScalar(0, 3, 5000, 0.7)}
+                scaleByDistance={new cesium.NearFarScalar(0, 3, 5000, 0.7)}
                 font="12px"
                 showBackground={true}
-                backgroundColor={Color.WHITE}
-                pixelOffset={new Cartesian2(0, -10)}
-                pixelOffsetScaleByDistance={new NearFarScalar(0, 4, 5000, 1.2)}
-                backgroundPadding={new Cartesian2(10, 10)}
-                fillColor={Color.BLACK}
-                verticalOrigin={VerticalOrigin.BOTTOM}
+                backgroundColor={cesium.Color.WHITE}
+                pixelOffset={new cesium.Cartesian2(0, -10)}
+                pixelOffsetScaleByDistance={new cesium.NearFarScalar(0, 4, 5000, 1.2)}
+                backgroundPadding={new cesium.Cartesian2(10, 10)}
+                fillColor={cesium.Color.BLACK}
+                verticalOrigin={cesium.VerticalOrigin.BOTTOM}
                 // eyeOffset={new Cartesian3(0, 0, -3000)}
             />
             <BillboardGraphics
                 image={`/assets/bus_station_${id}.svg`}
-                scaleByDistance={new NearFarScalar(0, 0.8, 5000, 0.2)}
+                scaleByDistance={new cesium.NearFarScalar(0, 0.8, 5000, 0.2)}
 
                 // eyeOffset={new Cartesian3(0, 0, -3000)}
             />

@@ -6,12 +6,7 @@ import {
     ScreenSpaceCameraController,
     Viewer,
 } from "resium";
-import {
-    Cartesian3,
-    UrlTemplateImageryProvider,
-    Viewer as ViewerImps,
-    Math as MathImps,
-} from "cesium";
+import * as cesium from "cesium"
 import { getRandomInt } from "@/utils/common";
 import MainMenu from "./MainMenu";
 import BusRoadPointList from "./BusRoadPointList";
@@ -20,14 +15,14 @@ import Taipei101 from "./Taipei101";
 import FocusOutline from "./FocusOutline";
 import "cesium/Build/Cesium/Widgets/widgets.css";
 
-export const VIEWCENTERPOSITION = Cartesian3.fromDegrees(
+export const VIEWCENTERPOSITION = cesium.Cartesian3.fromDegrees(
     121.5361925,
     25.0403944,
     7000
 );
 
 const CesiumView: React.FC = () => {
-    const cesiumRef = useRef<CesiumComponentRef<ViewerImps>>(null);
+    const cesiumRef = useRef<CesiumComponentRef<cesium.Viewer>>(null);
     const [key, setKey] = useState<number>(getRandomInt(200));
 
     useEffect(() => {
@@ -42,14 +37,14 @@ const CesiumView: React.FC = () => {
         viewer.camera.setView({
             destination: VIEWCENTERPOSITION,
             orientation: {
-                heading: MathImps.toRadians(0),
-                pitch: MathImps.toRadians(-90),
+                heading: cesium.Math.toRadians(0),
+                pitch: cesium.Math.toRadians(-90),
                 roll: 0,
             },
         });
         // load google map image
         viewer.imageryLayers.addImageryProvider(
-            new UrlTemplateImageryProvider({
+            new cesium.UrlTemplateImageryProvider({
                 url: "https://mt{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",
                 subdomains: ["0", "1", "2", "3"],
             })
