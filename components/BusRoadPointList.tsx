@@ -1,9 +1,9 @@
-'use client'
+"use client";
 
 import React, { useRef } from "react";
 import roadPoint from "@/public/roadPoint.json";
 import { Clock, Entity, ModelGraphics } from "resium";
-import * as cesium from "cesium"
+import * as cesium from "cesium";
 
 const start = cesium.JulianDate.fromDate(new Date());
 const stop = cesium.JulianDate.addSeconds(start, 638, new cesium.JulianDate());
@@ -11,7 +11,11 @@ const stop = cesium.JulianDate.addSeconds(start, 638, new cesium.JulianDate());
 const creatTimeline = () => {
     const property = new cesium.SampledPositionProperty();
     roadPoint.map((point, i) => {
-        const time = cesium.JulianDate.addSeconds(start, i, new cesium.JulianDate());
+        const time = cesium.JulianDate.addSeconds(
+            start,
+            i,
+            new cesium.JulianDate()
+        );
         const position = cesium.Cartesian3.fromDegrees(point.lat, point.lon);
 
         property.addSample(time, position);
@@ -21,7 +25,12 @@ const creatTimeline = () => {
 
 const BusRoadPointList = () => {
     const positionRef = useRef(creatTimeline());
-
+    const handleClick = () => {
+        window.gtag("event", "click", {
+            event_category: "模型",
+            event_label: "雙層巴士",
+        });
+    };
     return (
         <>
             <Clock
@@ -50,9 +59,12 @@ const BusRoadPointList = () => {
                         ])
                     }
                     orientation={
-                        new cesium.VelocityOrientationProperty(positionRef.current)
+                        new cesium.VelocityOrientationProperty(
+                            positionRef.current
+                        )
                     }
                     viewFrom={new cesium.Cartesian3(0, 0, 300)}
+                    onClick={handleClick}
                 >
                     <ModelGraphics
                         uri="/assets/bus.gltf"

@@ -57,6 +57,13 @@ const nextConfig = {
     compiler: {
         removeConsole: true,
     },
+    experimental: {
+        thirdParty: {
+            google: {
+                measurementId: 'G-F5R2FW96G7',
+            },
+        },
+    },
     output: 'standalone'
 };
 

@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import React, { useState } from "react";
 import busStationList from "@/public/bus_station.json";
@@ -7,13 +7,13 @@ import { StationItemType } from "@/type/common";
 import EarthIcon from "./Icon/EarthIcon";
 import MapIcon from "./Icon/MapIcon";
 import { useCesium } from "resium";
-import * as cesium from "cesium"
+import * as cesium from "cesium";
 import { VIEWCENTERPOSITION } from "./CesiumView";
 import PlusIcon from "./Icon/PlusIcon";
 import MinusIcon from "./Icon/MinusIcon";
 
 const BusStationItem: React.FC<StationItemType> = ({ id, name, position }) => {
-    const { camera, viewer,  } = useCesium();
+    const { camera, viewer } = useCesium();
     const handleClick = () => {
         if (camera == null) return;
         if (viewer == null) return;
@@ -31,6 +31,10 @@ const BusStationItem: React.FC<StationItemType> = ({ id, name, position }) => {
                 pitch: cesium.Math.toRadians(-90),
                 roll: 0,
             },
+        });
+        window.gtag("event", "click", {
+            event_category: "清單",
+            event_label: name,
         });
     };
 
@@ -104,14 +108,27 @@ const MainMenu: React.FC = () => {
                 roll: 0,
             },
         });
+
+        window.gtag("event", "click", {
+            event_category: "操作",
+            event_label: "全景視角",
+        });
     };
     const handleZoomIn = () => {
         if (camera == null) return;
         camera.zoomIn(1000);
+        window.gtag("event", "click", {
+            event_category: "操作",
+            event_label: "縮小",
+        });
     };
     const handleZoomOut = () => {
         if (camera == null) return;
         camera.zoomOut(1000);
+        window.gtag("event", "click", {
+            event_category: "操作",
+            event_label: "放大",
+        });
     };
     const handleBus = () => {
         if (viewer == null) return;
@@ -121,6 +138,11 @@ const MainMenu: React.FC = () => {
         );
         if (findBusModel == null) return;
         viewer.trackedEntity = findBusModel;
+
+        window.gtag("event", "click", {
+            event_category: "操作",
+            event_label: "雙層巴士",
+        });
     };
 
     return (

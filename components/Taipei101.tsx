@@ -13,6 +13,10 @@ const Taipei101: React.FC = () => {
         if (viewer == null) return;
         if (modelRef.current == null) return;
         viewer.trackedEntity = modelRef.current.cesiumElement;
+        window.gtag("event", "click", {
+            event_category: "模型",
+            event_label: "台北 101",
+        });
     };
     return (
         <>
@@ -31,7 +35,9 @@ const Taipei101: React.FC = () => {
                     scale={40}
                     colorBlendMode={cesium.ColorBlendMode.MIX}
                     color={cesium.Color.fromAlpha(cesium.Color.WHITE, 1)}
-                    silhouetteColor={isHover ? cesium.Color.BLACK : cesium.Color.GRAY}
+                    silhouetteColor={
+                        isHover ? cesium.Color.BLACK : cesium.Color.GRAY
+                    }
                     silhouetteSize={3}
                     shadows={cesium.ShadowMode.RECEIVE_ONLY}
                 />

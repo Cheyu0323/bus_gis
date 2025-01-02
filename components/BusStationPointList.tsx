@@ -1,9 +1,9 @@
-'use client'
+"use client";
 
 import React, { useState } from "react";
 import busStationList from "@/public/bus_station.json";
 import { StationItemType } from "@/type/common";
-import * as cesium from "cesium"
+import * as cesium from "cesium";
 import { BillboardGraphics, Entity, LabelGraphics, useCesium } from "resium";
 
 const BusStationPoint: React.FC<StationItemType> = ({ id, name, position }) => {
@@ -28,11 +28,20 @@ const BusStationPoint: React.FC<StationItemType> = ({ id, name, position }) => {
                 roll: 0,
             },
         });
+
+        window.gtag("event", "click", {
+            event_category: "熱點",
+            event_label: name,
+        });
     };
 
     return (
         <Entity
-            position={cesium.Cartesian3.fromDegrees(position.lon, position.lat, 1)}
+            position={cesium.Cartesian3.fromDegrees(
+                position.lon,
+                position.lat,
+                1
+            )}
             onMouseEnter={() => setIsHover(true)}
             onMouseLeave={() => setIsHover(false)}
             onMouseDown={() => setIsHover(false)}
@@ -46,7 +55,9 @@ const BusStationPoint: React.FC<StationItemType> = ({ id, name, position }) => {
                 showBackground={true}
                 backgroundColor={cesium.Color.WHITE}
                 pixelOffset={new cesium.Cartesian2(0, -10)}
-                pixelOffsetScaleByDistance={new cesium.NearFarScalar(0, 4, 5000, 1.2)}
+                pixelOffsetScaleByDistance={
+                    new cesium.NearFarScalar(0, 4, 5000, 1.2)
+                }
                 backgroundPadding={new cesium.Cartesian2(10, 10)}
                 fillColor={cesium.Color.BLACK}
                 verticalOrigin={cesium.VerticalOrigin.BOTTOM}
