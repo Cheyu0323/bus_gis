@@ -6,21 +6,9 @@ const pathBuilder = (subpath) => path.join(process.cwd(), subpath);
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    webpack: (config, { webpack, isProduction }) => {
-        if (isProduction) {
-            config.optimization.minimizer = [
-                new TerserPlugin({
-                    terserOptions: {
-                        compress: {
-                            toplevel: false,
-                            keep_fnames: true,
-                        }
-                    }, output: {
-                        beautify: false,
-                    },
-                }),
-            ];
-        }
+    compress: false,
+    reactStrictMode: true,
+    webpack: (config, { webpack }) => {
         config.plugins.push(
             new CopyWebpackPlugin({
                 patterns: [
@@ -60,8 +48,14 @@ const nextConfig = {
             }),
             new webpack.DefinePlugin({ CESIUM_BASE_URL: JSON.stringify('/cesium') })
         );
-
-        return config
+        return {
+            ...config, optimization: {
+                minimize: false
+            }
+        }
+    },
+    compiler: {
+        removeConsole: true,
     },
     output: 'standalone'
 };
