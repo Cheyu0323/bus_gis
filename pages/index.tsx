@@ -1,6 +1,10 @@
-import CesiumView from "@/components/CesiumView";
 import React, { Suspense } from "react";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import dynamic from "next/dynamic";
+
+const CesiumView = dynamic(() => import("@/components/CesiumView"), {
+    ssr: false,
+});
 
 const Home = () => {
     return (
