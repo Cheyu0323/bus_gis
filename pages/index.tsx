@@ -11,7 +11,7 @@ const Home = () => {
         <>
             <style jsx global>{`
                 .cesium-viewer-bottom {
-                    display: none;
+                    display: none !important;
                 }
             `}</style>
             <title>BUS GIS</title>
