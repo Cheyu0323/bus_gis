@@ -5,6 +5,7 @@ import busStationList from "@/public/bus_station.json";
 import { StationItemType } from "@/type/common";
 import * as cesium from "cesium";
 import { BillboardGraphics, Entity, LabelGraphics, useCesium } from "resium";
+import { track } from "@vercel/analytics";
 
 const BusStationPoint: React.FC<StationItemType> = ({ id, name, position }) => {
     const [isHover, setIsHover] = useState<boolean>(false);
@@ -33,6 +34,7 @@ const BusStationPoint: React.FC<StationItemType> = ({ id, name, position }) => {
             event_category: "熱點",
             event_label: name,
         });
+        track(`熱點_${name}`);
     };
 
     return (

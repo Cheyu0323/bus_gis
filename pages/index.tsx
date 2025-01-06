@@ -1,5 +1,6 @@
 import React, { Suspense } from "react";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { Analytics } from "@vercel/analytics/next";
 import dynamic from "next/dynamic";
 
 const CesiumView = dynamic(() => import("@/components/CesiumView"), {
@@ -15,6 +16,7 @@ const Home = () => {
                 }
             `}</style>
             <title>BUS GIS</title>
+            <Analytics />
             <GoogleAnalytics gaId="G-F5R2FW96G7" />
             <section className="h-svh w-full relative">
                 <Suspense>

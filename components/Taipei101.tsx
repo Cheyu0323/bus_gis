@@ -4,6 +4,7 @@ import * as cesium from "cesium";
 
 import React, { useRef, useState } from "react";
 import { CesiumComponentRef, Entity, ModelGraphics, useCesium } from "resium";
+import { track } from "@vercel/analytics";
 
 const Taipei101: React.FC = () => {
     const modelRef = useRef<CesiumComponentRef<cesium.Entity>>(null);
@@ -17,6 +18,7 @@ const Taipei101: React.FC = () => {
             event_category: "模型",
             event_label: "台北 101",
         });
+        track("模型_台北 101");
     };
     return (
         <>

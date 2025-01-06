@@ -11,6 +11,7 @@ import * as cesium from "cesium";
 import { VIEWCENTERPOSITION } from "./CesiumView";
 import PlusIcon from "./Icon/PlusIcon";
 import MinusIcon from "./Icon/MinusIcon";
+import { track } from "@vercel/analytics";
 
 const BusStationItem: React.FC<StationItemType> = ({ id, name, position }) => {
     const { camera, viewer } = useCesium();
@@ -36,6 +37,7 @@ const BusStationItem: React.FC<StationItemType> = ({ id, name, position }) => {
             event_category: "清單",
             event_label: name,
         });
+        track(`清單_${name}`);
     };
 
     return (
@@ -93,6 +95,11 @@ const MainMenu: React.FC = () => {
     const { camera, viewer, entityCollection } = useCesium();
     const handleClickMap = () => {
         setIsExpand((pre) => !pre);
+        window.gtag("event", "click", {
+            event_category: "操作",
+            event_label: "路線資訊",
+        });
+        track("操作_路線資訊");
     };
     const handleClickEarth = () => {
         if (camera == null) return;
@@ -113,6 +120,7 @@ const MainMenu: React.FC = () => {
             event_category: "操作",
             event_label: "全景視角",
         });
+        track("操作_全景視角");
     };
     const handleZoomIn = () => {
         if (camera == null) return;
@@ -121,6 +129,7 @@ const MainMenu: React.FC = () => {
             event_category: "操作",
             event_label: "縮小",
         });
+        track("操作_縮小");
     };
     const handleZoomOut = () => {
         if (camera == null) return;
@@ -129,6 +138,7 @@ const MainMenu: React.FC = () => {
             event_category: "操作",
             event_label: "放大",
         });
+        track("操作_放大");
     };
     const handleBus = () => {
         if (viewer == null) return;
@@ -143,6 +153,7 @@ const MainMenu: React.FC = () => {
             event_category: "操作",
             event_label: "雙層巴士",
         });
+        track("操作_雙層巴士");
     };
 
     return (

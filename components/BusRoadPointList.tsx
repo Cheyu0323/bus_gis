@@ -4,6 +4,7 @@ import React, { useRef } from "react";
 import roadPoint from "@/public/roadPoint.json";
 import { Clock, Entity, ModelGraphics } from "resium";
 import * as cesium from "cesium";
+import { track } from "@vercel/analytics";
 
 const start = cesium.JulianDate.fromDate(new Date());
 const stop = cesium.JulianDate.addSeconds(start, 638, new cesium.JulianDate());
@@ -30,6 +31,7 @@ const BusRoadPointList = () => {
             event_category: "模型",
             event_label: "雙層巴士",
         });
+        track("模型_雙層巴士");
     };
     return (
         <>
