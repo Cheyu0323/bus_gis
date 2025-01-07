@@ -34,8 +34,8 @@ const BusStationItem: React.FC<StationItemType> = ({ id, name, position }) => {
             },
         });
         window.gtag("event", "click", {
-            event_category: "清單",
-            event_label: name,
+            category: "清單",
+            label: name,
         });
         track(`清單_${name}`);
     };
@@ -96,8 +96,8 @@ const MainMenu: React.FC = () => {
     const handleClickMap = () => {
         setIsExpand((pre) => !pre);
         window.gtag("event", "click", {
-            event_category: "操作",
-            event_label: "路線資訊",
+            category: "操作",
+            label: "路線資訊",
         });
         track("操作_路線資訊");
     };
@@ -117,8 +117,8 @@ const MainMenu: React.FC = () => {
         });
 
         window.gtag("event", "click", {
-            event_category: "操作",
-            event_label: "全景視角",
+            category: "操作",
+            label: "全景視角",
         });
         track("操作_全景視角");
     };
@@ -126,8 +126,8 @@ const MainMenu: React.FC = () => {
         if (camera == null) return;
         camera.zoomIn(1000);
         window.gtag("event", "click", {
-            event_category: "操作",
-            event_label: "縮小",
+            category: "操作",
+            label: "縮小",
         });
         track("操作_縮小");
     };
@@ -135,8 +135,8 @@ const MainMenu: React.FC = () => {
         if (camera == null) return;
         camera.zoomOut(1000);
         window.gtag("event", "click", {
-            event_category: "操作",
-            event_label: "放大",
+            category: "操作",
+            label: "放大",
         });
         track("操作_放大");
     };
@@ -150,8 +150,8 @@ const MainMenu: React.FC = () => {
         viewer.trackedEntity = findBusModel;
 
         window.gtag("event", "click", {
-            event_category: "操作",
-            event_label: "雙層巴士",
+            category: "操作",
+            label: "雙層巴士",
         });
         track("操作_雙層巴士");
     };

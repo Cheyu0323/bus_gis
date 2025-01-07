@@ -31,8 +31,8 @@ const BusStationPoint: React.FC<StationItemType> = ({ id, name, position }) => {
         });
 
         window.gtag("event", "click", {
-            event_category: "熱點",
-            event_label: name,
+            category: "熱點",
+            label: name,
         });
         track(`熱點_${name}`);
     };

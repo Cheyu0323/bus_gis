@@ -28,8 +28,8 @@ const BusRoadPointList = () => {
     const positionRef = useRef(creatTimeline());
     const handleClick = () => {
         window.gtag("event", "click", {
-            event_category: "模型",
-            event_label: "雙層巴士",
+            category: "模型",
+            label: "雙層巴士",
         });
         track("模型_雙層巴士");
     };

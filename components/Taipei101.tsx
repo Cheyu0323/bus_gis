@@ -15,8 +15,8 @@ const Taipei101: React.FC = () => {
         if (modelRef.current == null) return;
         viewer.trackedEntity = modelRef.current.cesiumElement;
         window.gtag("event", "click", {
-            event_category: "模型",
-            event_label: "台北 101",
+            category: "模型",
+            label: "台北 101",
         });
         track("模型_台北 101");
     };
